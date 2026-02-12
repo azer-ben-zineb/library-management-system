@@ -1,0 +1,329 @@
+ 
+.dashboard-root {
+  -fx-font-family: "Segoe UI", Roboto, Arial, sans-serif;
+  -fx-background-color: #ffffff;
+  -fx-padding: 0 20 20 20;
+}
+
+.dashboard-header Label#welcomeLabel {
+  -fx-font-size: 20px;
+  -fx-font-weight: bold;
+  -fx-text-fill: #0f172a;
+  -fx-alignment: center-left;
+  -fx-padding: 6 0 6 0;
+}
+
+.dashboard-search {
+  -fx-alignment: center-left;
+}
+
+.dashboard-search TextField {
+  -fx-pref-width: 520px;
+  -fx-font-size: 18px;
+  -fx-padding: 12 14 12 14;
+  -fx-background-radius: 8;
+  -fx-border-radius: 8;
+  -fx-border-color: #e5e7eb;
+  -fx-text-fill: white !important;
+   
+}
+
+.page-subtitle {
+  -fx-text-fill: #666;
+  -fx-font-size: 14px;
+  -fx-padding: 0 0 8 0;
+}
+
+#pageTitle {
+  -fx-font-size: 40px;
+  -fx-font-weight: 700;
+  -fx-text-fill: #111827;
+  -fx-padding: 6 0 4 0;
+}
+
+.section-title {
+  -fx-font-size: 12px;
+  -fx-text-fill: #444;
+  -fx-font-weight: 600;
+  -fx-padding: 6 0 4 0;
+}
+
+ 
+.clickable-category {
+  -fx-cursor: hand;
+  -fx-text-fill: #1f2937;
+   
+  -fx-background-color: transparent;
+  -fx-padding: 6 4 6 4;
+  -fx-border-radius: 6;
+  -fx-background-radius: 6;
+}
+
+.clickable-category:hover {
+  -fx-background-color: rgba(99, 102, 120, 0.06);
+}
+
+ 
+.featured-card {
+  -fx-background-color: transparent;
+  -fx-padding: 0;
+  -fx-background-radius: 0;
+  -fx-border-radius: 0;
+   
+  -fx-pref-width: 180px;
+  -fx-cursor: hand;
+  -fx-effect: dropshadow(gaussian, rgba(15, 23, 42, 0.06), 8, 0.0, 0, 4);
+}
+
+.featured-card:hover {
+  -fx-scale-x: 1.05;
+  -fx-scale-y: 1.05;
+  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.12), 12, 0.0, 0, 6);
+}
+
+.featured-card .card-title {
+  -fx-font-weight: 700;
+  -fx-font-size: 14px;
+  -fx-text-fill: #0f172a;
+}
+
+.featured-card .card-author {
+  -fx-font-size: 12px;
+  -fx-text-fill: #6b7280;
+}
+
+.featured-card .card-cover {
+  -fx-pref-width: 100%;
+  -fx-pref-height: 110px;
+  -fx-background-color: #eef2f7;
+  -fx-background-radius: 6;
+  -fx-border-radius: 6;
+  -fx-alignment: center;
+}
+
+ 
+.detail-tabpane .tab {
+  -fx-font-weight: 600;
+}
+
+.detail-overview {
+  -fx-background-color: transparent;
+}
+
+.detail-title {
+  -fx-font-size: 28px;
+  -fx-font-weight: 800;
+  -fx-text-fill: #0b1220;
+  -fx-padding: 4 0 6 0;
+}
+
+.detail-author {
+  -fx-font-size: 14px;
+  -fx-text-fill: #374151;
+  -fx-padding: 0 0 4 0;
+}
+
+.detail-meta {
+  -fx-font-size: 13px;
+  -fx-text-fill: #6b7280;
+}
+
+ 
+.detail-reviews .list-view {
+  -fx-background-color: transparent;
+}
+
+.detail-purchase Label {
+  -fx-font-weight: 600;
+}
+
+ 
+.list-cell:filled {
+  -fx-padding: 8 12 8 12;
+}
+
+ 
+@media screen and (max-width: 900px) {
+  .dashboard-search TextField {
+    -fx-pref-width: 320px;
+  }
+
+  .featured-card {
+    -fx-pref-width: 140px;
+  }
+}
+
+ 
+@font-face {
+  font-family: 'LPSerif';
+  src: url('/fonts/Lora-Regular.ttf');
+}
+
+.carousel-pane {
+  -fx-background-color: transparent;
+  -fx-alignment: center-left;
+  -fx-padding: 8 0 8 0;
+  -fx-border-radius: 6;
+}
+
+.carousel-title {
+  -fx-background-color: rgba(0, 0, 0, 0.45);
+  -fx-text-fill: white;
+  -fx-padding: 8 12 8 12;
+  -fx-background-radius: 6;
+  -fx-font-family: 'LPSerif', serif;
+  -fx-font-size: 18px;
+  -fx-font-weight: 700;
+  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.6), 6, 0.0, 0, 2);
+}
+
+ 
+.carousel-pane ImageView {
+  -fx-opacity: 1.0;
+  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.0, 0, 6);
+}
+
+ 
+.featured-card {
+  -fx-position: relative;
+}
+
+.featured-card .badge {
+  -fx-background-color: rgba(255, 255, 255, 0.95);
+  -fx-padding: 4 6 4 6;
+  -fx-background-radius: 6;
+  -fx-font-size: 11px;
+  -fx-text-fill: #111827;
+  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.08), 4, 0.0, 0, 2);
+}
+
+.featured-card .badge.rating {
+  -fx-background-color: linear-gradient(#ffd54f, #ffb300);
+}
+
+.featured-card .badge.status {
+  -fx-background-color: linear-gradient(#2ecc71, #27ae60);
+  -fx-text-fill: white;
+}
+
+ 
+.detail-title {
+  -fx-font-family: 'LPSerif', serif;
+}
+
+ 
+.icon-toggle,
+.icon-button {
+  -fx-background-color: transparent;
+  -fx-padding: 6 8 6 8;
+  -fx-min-width: 28px;
+  -fx-min-height: 28px;
+  -fx-pref-width: 28px;
+  -fx-pref-height: 28px;
+  -fx-background-radius: 6px;
+  -fx-border-radius: 6px;
+  -fx-cursor: hand;
+  -fx-alignment: center;
+  -fx-focus-color: transparent;
+  -fx-faint-focus-color: transparent;
+}
+
+.icon-toggle .label,
+.icon-button .label {
+  -fx-font-size: 14px;
+  -fx-padding: 0;
+}
+
+ 
+.icon-button {
+  -fx-padding: 6 10 6 10;
+   
+  -fx-font-size: 12px;
+}
+
+ 
+.icon-toggle:hover,
+.icon-button:hover {
+  -fx-background-color: rgba(15, 23, 42, 0.06);
+}
+
+ 
+.icon-toggle:selected {
+  -fx-background-color: rgba(99, 102, 120, 0.12);
+}
+
+ 
+.icon-toggle:pressed,
+.icon-button:pressed {
+  -fx-background-color: rgba(15, 23, 42, 0.12);
+}
+
+ 
+.icon-button,
+.icon-toggle {
+  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.04), 6, 0.0, 0, 2);
+}
+
+ 
+.icon-button:hover,
+.icon-toggle:hover {
+  -fx-cursor: hand;
+  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.08), 10, 0.0, 0, 3);
+   
+  -fx-translate-y: -2px;
+   
+  -fx-scale-x: 1.06;
+  -fx-scale-y: 1.06;
+}
+
+ 
+.icon-button.logout:hover {
+  -fx-rotate: 8;
+  -fx-scale-x: 1.08;
+  -fx-scale-y: 1.08;
+}
+
+ 
+
+ 
+
+ 
+.detail-cover {
+  -fx-background-color: transparent;
+  -fx-background-radius: 10px;
+  -fx-border-radius: 10px;
+  -fx-padding: 6px;
+   
+  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.16), 12, 0.0, 0, 6);
+   
+  -fx-max-width: 320px;
+  -fx-max-height: 440px;
+}
+
+ 
+.detail-cover:hover {
+  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.22), 16, 0.0, 0, 8);
+   
+  -fx-padding: 4px;
+}
+
+ 
+.tooltip {
+  -fx-background-color: rgba(17, 24, 39, 0.95);
+   
+  -fx-padding: 6 10 6 10;
+  -fx-background-radius: 6;
+  -fx-border-radius: 6;
+  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.36), 10, 0.0, 0, 4);
+}
+
+.tooltip .label {
+  -fx-text-fill: #ffffff;
+  -fx-font-size: 12px;
+  -fx-font-family: "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+ 
+.tooltip .arrow {
+  -fx-background-color: transparent;
+}

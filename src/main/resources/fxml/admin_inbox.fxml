@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.libraryplus.ui.AdminInboxController">
+   <top>
+      <HBox alignment="CENTER_LEFT" spacing="10.0" style="-fx-padding: 10; -fx-background-color: #1e1e2e;" BorderPane.alignment="CENTER">
+         <children>
+            <Label style="-fx-text-fill: #cdd6f4; -fx-font-size: 18px; -fx-font-weight: bold;" text="Admin Inbox" />
+            <Button mnemonicParsing="false" onAction="#onRefresh" text="Refresh" />
+         </children>
+      </HBox>
+   </top>
+   <center>
+      <SplitPane dividerPositions="0.4" prefHeight="160.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        <items>
+            <VBox prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <ListView fx:id="messageListView" VBox.vgrow="ALWAYS" />
+               </children>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" style="-fx-padding: 10;">
+               <children>
+                  <Label text="Subject:" />
+                  <TextField fx:id="subjectField" editable="false" />
+                  <Label text="From:" />
+                  <TextField fx:id="senderField" editable="false" />
+                  <Label text="Content:" />
+                  <TextArea fx:id="contentArea" editable="false" prefHeight="150.0" wrapText="true" />
+                  <Label text="Reply:" />
+                  <TextArea fx:id="replyArea" prefHeight="100.0" wrapText="true" />
+                  <HBox alignment="CENTER_RIGHT" spacing="10.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#onMarkRead" text="Mark as Read" />
+                        <Button mnemonicParsing="false" onAction="#onSendReply" text="Send Reply" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+        </items>
+      </SplitPane>
+   </center>
+</BorderPane>

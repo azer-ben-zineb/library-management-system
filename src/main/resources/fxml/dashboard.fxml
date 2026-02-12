@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.StackPane?>
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.libraryplus.ui.DashboardController" styleClass="dashboard-root">
+    <top>
+        <VBox spacing="8" style="-fx-padding:12;">
+            <HBox styleClass="dashboard-header" alignment="CENTER_LEFT" spacing="10">
+                <Label fx:id="welcomeLabel" text="LibraryPlus" />
+                <javafx.scene.layout.Region HBox.hgrow="ALWAYS" />
+                <Button fx:id="logoutButton" text="Logout" onAction="#onLogout" />
+                <Button fx:id="musicToggleButton" text="🔊" onAction="#onToggleMusic" style="-fx-font-size: 16px; -fx-background-color: transparent;" />
+                <javafx.scene.control.Slider fx:id="volumeSlider" min="0" max="1" value="0.35" blockIncrement="0.1" prefWidth="100" />
+            </HBox>
+            <HBox spacing="10" alignment="CENTER_LEFT" styleClass="dashboard-search">
+                <TextField fx:id="searchField" promptText="Search books or authors..." />
+                <Button text="Search" onAction="#onSearch" />
+                <Button text="Show all" fx:id="showAllButton" onAction="#onShowAllClicked" />
+                <Button text="Add Book" onAction="#onAddBook" />
+                <Button fx:id="editButton" text="Edit Selected" onAction="#onEditBook" />
+                <Button fx:id="deleteButton" text="Delete Selected" onAction="#onDeleteBook" />
+                <Button fx:id="usersButton" text="Show Users" onAction="#onShowUsers" visible="false" managed="false" />
+                <Button fx:id="chatButton" text="Chat with AI" onAction="#onChat" />
+                <Button fx:id="inboxButton" text="Inbox" onAction="#onInbox" />
+                <Button fx:id="requestBookButton" text="Request Book" onAction="#onRequestBook" />
+                <Button fx:id="subscribeButton" text="Subscribe (20DT)" onAction="#onSubscribe" />
+                <Button fx:id="viewSubscriptionsButton" text="View Subscriptions" onAction="#onViewSubscriptions" />
+            </HBox>
+        </VBox>
+    </top>
+
+    <center>
+        <SplitPane dividerPositions="0.65" orientation="HORIZONTAL">
+            
+            <VBox spacing="12" style="-fx-padding:12;">
+                <Label fx:id="pageTitle" text="Library" />
+                <Label text="Browse the collection or search for books by ISBN, title, or author." styleClass="page-subtitle" />
+
+                <Label text="Featured" styleClass="section-title" />
+                
+                <StackPane fx:id="carouselPane" styleClass="carousel-pane" prefHeight="160">
+                    <ImageView fx:id="carouselCover" fitHeight="140" preserveRatio="true" />
+                    <Label fx:id="carouselTitle" styleClass="carousel-title" />
+                </StackPane>
+                <HBox fx:id="featuredBox" spacing="8" />
+
+                <Label text="Search history" styleClass="section-title" />
+                <ListView fx:id="searchHistoryListView" prefHeight="80" />
+
+                <Label text="Results" styleClass="section-title" />
+                <StackPane fx:id="resultsStackPane" VBox.vgrow="ALWAYS">
+                    <ScrollPane fx:id="categorizedPane" fitToWidth="true" style="-fx-background-color:transparent; -fx-background:transparent;">
+                        <VBox fx:id="categoriesScrollContent" spacing="16" style="-fx-padding:0 0 20 0;" />
+                    </ScrollPane>
+                    <VBox fx:id="searchResultsPane" spacing="10" visible="false">
+                        <ListView fx:id="booksListView" VBox.vgrow="ALWAYS" />
+                        <Button text="Load more" fx:id="loadMoreButton" onAction="#onLoadMore" />
+                    </VBox>
+                </StackPane>
+            </VBox>
+
+            
+            <ScrollPane fitToWidth="true" style="-fx-padding:12;">
+                <VBox spacing="10" style="-fx-padding:10;" fx:id="detailPane">
+                    <TabPane fx:id="detailTabPane">
+                        <tabs>
+                            <Tab text="Overview">
+                                <VBox spacing="8" style="-fx-padding:8;">
+                                    <Label fx:id="detailTitle" text="Select a book" styleClass="detail-title" />
+                                    <Label fx:id="detailAuthor" text="" styleClass="detail-author" />
+                                    <Label fx:id="detailCategory" text="" styleClass="detail-meta" />
+                                    <Label fx:id="detailIsbn" text="" styleClass="detail-meta" />
+                                    <Label fx:id="detailStock" text="" styleClass="detail-stock" />
+                                    <Label fx:id="detailPrice" text="" styleClass="detail-price" />
+                                    <TextArea fx:id="detailDescription" editable="false" wrapText="true" prefRowCount="10" />
+                                </VBox>
+                            </Tab>
+                            <Tab text="Reviews">
+                                <VBox spacing="8" style="-fx-padding:8;">
+                                    <ListView fx:id="reviewsListView" prefHeight="300" />
+                                    <HBox spacing="8">
+                                        <TextField fx:id="newReviewField" promptText="Write a short review..." />
+                                        <Button text="Submit" onAction="#onSubmitReview" />
+                                    </HBox>
+                                </VBox>
+                            </Tab>
+                            <Tab text="Purchase">
+                                <VBox spacing="8" style="-fx-padding:8;">
+                                    <Label text="Unit price:" />
+                                    <TextField fx:id="unitPriceField" />
+                                    <Button text="Buy Now" onAction="#onPurchase" />
+                                    <Button text="Borrow" onAction="#onBorrow" />
+                                </VBox>
+                            </Tab>
+                        </tabs>
+                    </TabPane>
+                </VBox>
+            </ScrollPane>
+        </SplitPane>
+    </center>
+</BorderPane>

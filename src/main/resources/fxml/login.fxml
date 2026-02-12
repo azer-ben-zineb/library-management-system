@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" spacing="10.0" xmlns:fx="http://javafx.com/fxml" fx:controller="com.libraryplus.ui.LoginController">
+    <padding>
+        <Insets top="20" right="20" left="20" bottom="20"/>
+    </padding>
+    <HBox alignment="CENTER_RIGHT" prefWidth="600">
+        <Region HBox.hgrow="ALWAYS" />
+        <ToggleButton fx:id="loginThemeToggle" text="🌙" />
+    </HBox>
+    <Label text="LibraryPlus" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+    <TextField fx:id="emailField" promptText="Email" />
+    <PasswordField fx:id="passwordField" promptText="Password" />
+    <HBox spacing="10">
+        <Button fx:id="loginButton" text="Login" onAction="#onLogin" />
+        <Button text="Register" onAction="#onRegister" />
+    </HBox>
+    <Label fx:id="messageLabel" />
+</VBox>

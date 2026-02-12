@@ -1,0 +1,27 @@
+ 
+.toast-root {
+  -fx-background-color: rgba(34,34,34,0.92);
+  -fx-background-radius: 8;
+  -fx-padding: 8 12 8 12;
+  -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.6), 10, 0.0, 0, 2);
+}
+
+.toast-label {
+  -fx-text-fill: white;
+  -fx-font-size: 13px;
+  -fx-wrap-text: true;
+}
+
+ 
+.toast-root.success {
+  -fx-background-color: linear-gradient(#2ecc71, #27ae60);
+}
+
+.toast-root.error {
+  -fx-background-color: linear-gradient(#e74c3c, #c0392b);
+}
+
+.toast-root.info {
+  -fx-background-color: linear-gradient(#3498db, #2980b9);
+}
+

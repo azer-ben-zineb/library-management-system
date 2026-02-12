@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="com.libraryplus.ui.UserListController" spacing="10" style="-fx-padding: 20;">
+    <Label text="Registered Users" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+    <TableView fx:id="usersTable" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="idColumn" text="ID" prefWidth="50"/>
+            <TableColumn fx:id="nameColumn" text="Full Name" prefWidth="150"/>
+            <TableColumn fx:id="emailColumn" text="Email" prefWidth="200"/>
+            <TableColumn fx:id="roleColumn" text="Role" prefWidth="100"/>
+            <TableColumn fx:id="phoneColumn" text="Phone" prefWidth="120"/>
+        </columns>
+    </TableView>
+</VBox>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+
+<GridPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.libraryplus.ui.RegisterController" hgap="10" vgap="10" alignment="CENTER">
+    <padding>
+        <Insets top="20" right="20" left="20" bottom="20"/>
+    </padding>
+
+    <Label text="Register" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2" style="-fx-font-size: 16px; -fx-font-weight: bold;" />
+
+    <Label text="Full name:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+    <TextField fx:id="fullNameField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+    <Label text="Email:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+    <TextField fx:id="emailField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+    <Label text="Password:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+    <PasswordField fx:id="passwordField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+
+    <Label text="Phone:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+    <TextField fx:id="phoneField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+
+    <Label text="Date of birth:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+    <DatePicker fx:id="dobPicker" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+
+    <Label text="Age (years):" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+    <TextField fx:id="ageField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+
+    <Label text="Card number (min. 16 digits):" GridPane.columnIndex="0" GridPane.rowIndex="7" />
+    <TextField fx:id="cardNumberField" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+
+    <Label text="Card balance:" GridPane.columnIndex="0" GridPane.rowIndex="8" />
+    <TextField fx:id="cardBalanceField" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+
+    <Label text="Role:" GridPane.columnIndex="0" GridPane.rowIndex="9" />
+    <ChoiceBox fx:id="roleChoice" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+
+    <HBox spacing="10" GridPane.columnIndex="0" GridPane.rowIndex="10" GridPane.columnSpan="2" alignment="CENTER_RIGHT">
+        <Button text="Cancel" onAction="#onCancel" />
+        <Button fx:id="registerButton" text="Register" onAction="#onRegister" />
+    </HBox>
+
+    <Label fx:id="messageLabel" GridPane.columnIndex="0" GridPane.rowIndex="11" GridPane.columnSpan="2" />
+</GridPane>
