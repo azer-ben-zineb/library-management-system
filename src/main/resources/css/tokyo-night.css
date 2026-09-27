@@ -1,303 +1,438 @@
- 
- 
+/* ==========================================================================
+   Tokyo Night Theme for LibraryPlus
+   Pure, valid JavaFX CSS
+   Palette: Tokyo Night Official
+   ========================================================================== */
 
- 
+.root {
+    -tn-bg: #1a1b26;
+    -tn-panel: #16161e;
+    -tn-surface: #24283b;
+    -tn-surface-hi: #2f3549;
+    -tn-text: #c0caf5;
+    -tn-subtext: #a9b1d6;
+    -tn-muted: #565f89;
+    -tn-blue: #7aa2f7;
+    -tn-cyan: #7dcfff;
+    -tn-green: #9ece6a;
+    -tn-orange: #ff9e64;
+    -tn-magenta: #bb9af7;
+    -tn-red: #f7768e;
+    -tn-yellow: #e0af68;
+
+    -fx-font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    -fx-background-color: -tn-bg;
+    -fx-text-fill: -tn-text;
+}
+
 .dashboard-root,
-.root,
 .border-pane,
-.stack-pane,
 .vbox,
 .hbox,
-.split-pane,
-.scroll-pane,
-.tab-pane {
-    -fx-background-color: #1a1b26;
-     
-    -fx-background: #1a1b26;
+.stack-pane,
+.grid-pane {
+    -fx-background-color: transparent;
 }
 
- 
-:root {
-    -tokyo-bg: #1a1b26;
-     
-    -tokyo-panel: #24283b;
-     
-    -tokyo-highlight: #2a3b65;
-     
-    -tokyo-text: #d4d9f0;
-     
-    -tokyo-muted: #6b7394;
-     
-    -tokyo-cyan: #7dcfff;
-     
-    -tokyo-green: #9ece6a;
-    -tokyo-orange: #ff9e64;
-    -tokyo-magenta: #bb9af7;
-    -tokyo-red: #f7768e;
+.label {
+    -fx-text-fill: -tn-text;
+    -fx-font-size: 13px;
 }
 
- 
-.root {
-    -fx-font-family: "Lora", "Segoe UI", "Roboto", "Noto Sans";
-    -fx-text-fill: var(-tokyo-text);
+.page-title {
+    -fx-font-size: 26px;
+    -fx-font-weight: 800;
+    -fx-text-fill: -tn-text;
+    -fx-padding: 0 0 4 0;
 }
 
- 
-.scene {
-    -fx-background-color: var(-tokyo-bg);
+.page-subtitle {
+    -fx-font-size: 13px;
+    -fx-text-fill: -tn-subtext;
+    -fx-padding: 0 0 8 0;
 }
 
- 
+.section-title {
+    -fx-font-size: 14px;
+    -fx-font-weight: 700;
+    -fx-text-fill: -tn-cyan;
+    -fx-padding: 6 0 4 0;
+}
+
+.card,
+.glass-card {
+    -fx-background-color: -tn-surface;
+    -fx-background-radius: 12;
+    -fx-border-color: -tn-surface-hi;
+    -fx-border-width: 1;
+    -fx-border-radius: 12;
+    -fx-padding: 16;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.3), 10, 0, 0, 4);
+}
+
+.login-card {
+    -fx-background-color: -tn-surface;
+    -fx-background-radius: 16;
+    -fx-border-color: -tn-surface-hi;
+    -fx-border-width: 1;
+    -fx-border-radius: 16;
+    -fx-padding: 28;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.45), 20, 0, 0, 8);
+}
+
+.header-bar {
+    -fx-background-color: -tn-panel;
+    -fx-border-color: -tn-surface-hi;
+    -fx-border-width: 0 0 1 0;
+    -fx-padding: 10 16 10 16;
+}
+
+.user-badge {
+    -fx-background-color: -tn-surface;
+    -fx-background-radius: 20;
+    -fx-padding: 4 12 4 12;
+    -fx-text-fill: -tn-magenta;
+    -fx-font-weight: 600;
+    -fx-font-size: 12px;
+}
+
+.balance-badge {
+    -fx-background-color: rgba(158, 206, 106, 0.15);
+    -fx-border-color: -tn-green;
+    -fx-border-width: 1;
+    -fx-border-radius: 16;
+    -fx-background-radius: 16;
+    -fx-padding: 4 12 4 12;
+    -fx-text-fill: -tn-green;
+    -fx-font-weight: 700;
+    -fx-font-size: 13px;
+}
+
 .button {
-    -fx-background-color: linear-gradient(from 0% 0% to 0% 100%, #2a3146, #222735);
-    -fx-text-fill: var(-tokyo-text);
-    -fx-padding: 8 12 8 12;
+    -fx-background-color: -tn-surface-hi;
+    -fx-text-fill: -tn-text;
+    -fx-font-size: 13px;
+    -fx-font-weight: 600;
     -fx-background-radius: 8;
-    -fx-border-color: transparent;
+    -fx-border-color: rgba(122, 162, 247, 0.2);
+    -fx-border-width: 1;
+    -fx-border-radius: 8;
+    -fx-padding: 7 14 7 14;
+    -fx-cursor: hand;
 }
 
 .button:hover {
-    -fx-background-color: linear-gradient(from 0% 0% to 0% 100%, #34436b, #2a334d);
+    -fx-background-color: #3b4261;
+    -fx-border-color: -tn-blue;
 }
 
-.button:focused {
-    -fx-effect: dropshadow(two-pass-box, rgba(125, 207, 255, 0.12), 8, 0.0, 0, 0);
+.button:pressed {
+    -fx-background-color: #2e3440;
+    -fx-translate-y: 1px;
 }
 
- 
- 
-.root .text-input,
-.root .text-field,
-.root .password-field,
-.root .text-area,
-.text-input,
-.text-field,
-.password-field,
-.text-area {
-    -fx-background-color: #151624;
-    -fx-text-fill: white !important;
-     
-    -fx-prompt-text-fill: var(-tokyo-muted);
-    -fx-background-radius: 6;
-    -fx-border-radius: 6;
+.button-primary {
+    -fx-background-color: -tn-blue;
+    -fx-text-fill: -tn-panel;
+    -fx-font-weight: 700;
+    -fx-border-color: transparent;
+    -fx-effect: dropshadow(three-pass-box, rgba(122, 162, 247, 0.35), 8, 0, 0, 2);
+}
+
+.button-primary:hover {
+    -fx-background-color: -tn-cyan;
+    -fx-text-fill: -tn-panel;
+}
+
+.button-success {
+    -fx-background-color: -tn-green;
+    -fx-text-fill: -tn-panel;
+    -fx-font-weight: 700;
     -fx-border-color: transparent;
 }
 
-.text-field:focused,
-.password-field:focused {
-    -fx-border-color: rgba(125, 207, 255, 0.14);
+.button-danger {
+    -fx-background-color: -tn-red;
+    -fx-text-fill: -tn-panel;
+    -fx-font-weight: 700;
+    -fx-border-color: transparent;
+}
+
+.text-field,
+.password-field,
+.text-area {
+    -fx-background-color: -tn-panel;
+    -fx-text-fill: -tn-text;
+    -fx-prompt-text-fill: -tn-muted;
+    -fx-background-radius: 8;
+    -fx-border-color: -tn-surface-hi;
     -fx-border-width: 1;
-}
-
- 
-.list-view {
-    -fx-background-color: transparent;
-    -fx-control-inner-background: #161722;
-    -fx-cell-hover-color: rgba(125, 207, 255, 0.06);
-}
-
-.list-cell {
-    -fx-text-fill: var(-tokyo-text);
-    -fx-background-color: transparent;
-}
-
-.list-cell:selected {
-    -fx-background-color: rgba(125, 207, 255, 0.08);
-}
-
- 
-.featured-card {
-    -fx-background-color: linear-gradient(#24283b, #1f2433);
-    -fx-padding: 10;
-    -fx-background-radius: 10;
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.45), 8, 0.0, 0, 4);
-}
-
-.card-title {
-    -fx-text-fill: var(-tokyo-text);
-    -fx-font-weight: 600;
-}
-
-.card-author {
-    -fx-text-fill: var(-tokyo-muted);
-    -fx-font-size: 12px;
-}
-
- 
-.section-title {
-    -fx-font-weight: 600;
-    -fx-text-fill: var(-tokyo-cyan);
-}
-
- 
-.carousel-title {
-    -fx-font-size: 16px;
-    -fx-font-weight: 700;
-    -fx-text-fill: var(-tokyo-text);
-}
-
- 
-.icon-toggle .label,
-.icon-button .label {
-    -fx-text-fill: var(-tokyo-text);
-}
-
-.icon-toggle {
-    -fx-background-color: transparent;
-    -fx-padding: 4;
-    -fx-background-radius: 6;
-    -fx-min-width: 28;
-    -fx-min-height: 28;
-}
-
-.icon-toggle:selected,
-.icon-toggle:hover {
-    -fx-background-color: rgba(125, 207, 255, 0.1);
-}
-
-.icon-button {
-    -fx-background-color: transparent;
-    -fx-padding: 4;
-    -fx-background-radius: 6;
-    -fx-min-width: 28;
-    -fx-min-height: 28;
-}
-
-.icon-button:hover {
-    -fx-background-color: rgba(125, 207, 255, 0.08);
-}
-
- 
-.tool-bar {
-    -fx-background-color: transparent;
-    -fx-padding: 0;
-}
-
- 
-.detail-stock {
-    -fx-text-fill: var(-tokyo-green);
-     
+    -fx-border-radius: 8;
+    -fx-padding: 8 12 8 12;
     -fx-font-size: 13px;
-    -fx-font-weight: 600;
-    -fx-padding: 4 0 4 0;
+    -fx-highlight-fill: -tn-blue;
+    -fx-highlight-text-fill: -tn-panel;
 }
 
- 
-.detail-price {
-    -fx-text-fill: var(-tokyo-green);
-     
-    -fx-font-size: 13px;
-    -fx-font-weight: 600;
-    -fx-padding: 4 0 4 0;
-}
-
- 
-.detail-title {
-    -fx-font-size: 20px;
-    -fx-font-weight: 700;
-    -fx-text-fill: var(-tokyo-text);
-}
-
-.detail-author {
-    -fx-font-size: 15px;
-    -fx-font-style: italic;
-    -fx-text-fill: var(-tokyo-muted);
-}
-
-.detail-meta {
-    -fx-font-size: 12px;
-    -fx-text-fill: var(-tokyo-muted);
-}
-
- 
-.toast-root {
-    -fx-background-color: linear-gradient(#24283b, #1f2433);
-    -fx-text-fill: var(-tokyo-text);
-}
-
- 
-.label,
-.text,
-.text-area,
-.page-subtitle,
-.section-title,
-.button,
-.tab-label {
-    -fx-text-fill: var(-tokyo-text) !important;
-}
-
- 
-.tab-pane .tab-header-area {
-    -fx-background-color: transparent;
-}
-
-.tab-pane .tab {
-    -fx-background-color: #24283b;
-    -fx-text-fill: var(-tokyo-text);
-}
-
-.tab-pane .tab:selected {
-    -fx-background-color: #2a3b65;
-    -fx-border-color: var(-tokyo-cyan);
-    -fx-border-width: 0 0 2 0;
-}
-
- 
-.detail-overview,
-.detail-reviews,
-.detail-purchase {
-    -fx-background-color: #151824;
-    -fx-padding: 12;
+.text-area .content {
+    -fx-background-color: -tn-panel;
     -fx-background-radius: 8;
 }
 
- 
--fx-background-color: transparent !important;
+.text-area:focused .content {
+    -fx-background-color: -tn-panel;
 }
 
- 
-.table-view {
+.text-field:focused,
+.password-field:focused,
+.text-area:focused {
+    -fx-border-color: -tn-blue;
+    -fx-border-width: 1.5;
+    -fx-effect: dropshadow(three-pass-box, rgba(122, 162, 247, 0.25), 6, 0, 0, 0);
+}
+
+.split-pane {
+    -fx-background-color: -tn-bg;
+    -fx-box-border: transparent;
+}
+
+.split-pane > .split-pane-divider {
+    -fx-background-color: -tn-surface-hi;
+    -fx-padding: 0 1 0 1;
+}
+
+.scroll-pane {
     -fx-background-color: transparent;
-    -fx-control-inner-background: #1a1b26;
-    -fx-background-insets: 0;
-    -fx-padding: 0;
+    -fx-border-color: transparent;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane:focused {
+    -fx-background-color: transparent;
+}
+
+.list-view {
+    -fx-background-color: -tn-panel;
+    -fx-border-color: -tn-surface-hi;
+    -fx-border-width: 1;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 4;
+}
+
+.list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: -tn-text;
+    -fx-padding: 8 10 8 10;
+    -fx-background-radius: 6;
+}
+
+.list-cell:filled:hover {
+    -fx-background-color: rgba(122, 162, 247, 0.12);
+}
+
+.list-cell:filled:selected {
+    -fx-background-color: rgba(122, 162, 247, 0.22);
+    -fx-border-color: -tn-blue;
+    -fx-border-width: 0 0 0 3;
+}
+
+.table-view {
+    -fx-background-color: -tn-panel;
+    -fx-background-radius: 8;
+    -fx-border-color: -tn-surface-hi;
+    -fx-border-width: 1;
+    -fx-border-radius: 8;
 }
 
 .table-view .column-header-background {
-    -fx-background-color: #24283b;
-    -fx-background-insets: 0;
+    -fx-background-color: -tn-surface;
+    -fx-background-radius: 8 8 0 0;
 }
 
 .table-view .column-header,
 .table-view .filler {
-    -fx-background-color: #24283b;
-    -fx-size: 35;
-    -fx-border-color: #414868;
-    -fx-border-width: 0 0 1 0;
+    -fx-background-color: -tn-surface;
+    -fx-size: 38;
+    -fx-border-color: -tn-surface-hi;
+    -fx-border-width: 0 1 1 0;
 }
 
 .table-view .column-header .label {
-    -fx-text-fill: var(-tokyo-cyan);
-    -fx-font-weight: bold;
-    -fx-alignment: center-left;
+    -fx-text-fill: -tn-magenta;
+    -fx-font-weight: 700;
+    -fx-font-size: 13px;
 }
 
 .table-row-cell {
-    -fx-background-color: #1a1b26;
+    -fx-background-color: -tn-panel;
     -fx-border-color: transparent;
-    -fx-table-cell-border-color: transparent;
 }
 
 .table-row-cell:odd {
-    -fx-background-color: #1f2335;
+    -fx-background-color: #1a1b29;
+}
+
+.table-row-cell:hover {
+    -fx-background-color: rgba(122, 162, 247, 0.12);
 }
 
 .table-row-cell:selected {
-    -fx-background-color: rgba(125, 207, 255, 0.15);
+    -fx-background-color: rgba(122, 162, 247, 0.22);
 }
 
 .table-cell {
-    -fx-text-fill: var(-tokyo-text);
-    -fx-alignment: center-left;
+    -fx-text-fill: -tn-text;
+    -fx-padding: 8 10 8 10;
+}
+
+.tab-pane .tab-header-area {
+    -fx-background-color: transparent;
+    -fx-padding: 0 0 8 0;
+}
+
+.tab-pane > .tab-content-area {
+    -fx-background-color: transparent;
     -fx-border-color: transparent;
+}
+
+.tab-pane .tab {
+    -fx-background-color: -tn-surface;
+    -fx-background-radius: 8 8 0 0;
+    -fx-padding: 6 16 6 16;
+}
+
+.tab-pane .tab:selected {
+    -fx-background-color: -tn-panel;
+    -fx-border-color: -tn-cyan;
+    -fx-border-width: 0 0 3 0;
+}
+
+.tab-pane .tab .tab-label {
+    -fx-text-fill: -tn-subtext;
+    -fx-font-weight: 600;
+}
+
+.tab-pane .tab:selected .tab-label {
+    -fx-text-fill: -tn-cyan;
+    -fx-font-weight: 700;
+}
+
+.scroll-bar:vertical,
+.scroll-bar:horizontal {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: -tn-surface-hi;
+    -fx-background-radius: 6;
+}
+
+.scroll-bar .thumb:hover {
+    -fx-background-color: -tn-blue;
+}
+
+.split-pane-divider {
+    -fx-background-color: -tn-surface-hi;
+    -fx-padding: 0 2 0 2;
+}
+
+.carousel-pane {
+    -fx-background-color: -tn-panel;
+    -fx-background-radius: 12;
+    -fx-border-color: -tn-surface-hi;
+    -fx-border-width: 1;
+    -fx-border-radius: 12;
+    -fx-padding: 12;
+}
+
+.carousel-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: 700;
+    -fx-text-fill: -tn-text;
+}
+
+.featured-card {
+    -fx-background-color: -tn-surface;
+    -fx-background-radius: 10;
+    -fx-border-color: -tn-surface-hi;
+    -fx-border-width: 1;
+    -fx-border-radius: 10;
+    -fx-padding: 10;
+    -fx-pref-width: 160px;
+    -fx-cursor: hand;
+}
+
+.featured-card:hover {
+    -fx-border-color: -tn-cyan;
+    -fx-scale-x: 1.04;
+    -fx-scale-y: 1.04;
+    -fx-effect: dropshadow(three-pass-box, rgba(125, 207, 255, 0.25), 12, 0, 0, 4);
+}
+
+.detail-title {
+    -fx-font-size: 20px;
+    -fx-font-weight: 800;
+    -fx-text-fill: -tn-text;
+}
+
+.detail-author {
+    -fx-font-size: 14px;
+    -fx-font-style: italic;
+    -fx-text-fill: -tn-magenta;
+}
+
+.detail-meta {
+    -fx-font-size: 12px;
+    -fx-text-fill: -tn-subtext;
+}
+
+.detail-stock {
+    -fx-font-size: 13px;
+    -fx-font-weight: 700;
+    -fx-text-fill: -tn-green;
+}
+
+.detail-price {
+    -fx-font-size: 16px;
+    -fx-font-weight: 800;
+    -fx-text-fill: -tn-orange;
+}
+
+.toast-root {
+    -fx-background-color: -tn-surface;
+    -fx-border-color: -tn-surface-hi;
+    -fx-border-width: 1;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-padding: 10 16 10 16;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 14, 0, 0, 4);
+}
+
+.toast-label {
+    -fx-text-fill: -tn-text;
+    -fx-font-size: 13px;
+    -fx-font-weight: 600;
+}
+
+/* Chat Bubbles */
+.chat-bubble-user {
+    -fx-background-color: -tn-blue;
+    -fx-text-fill: -tn-base;
+    -fx-padding: 8 14 8 14;
+    -fx-background-radius: 16 16 2 16;
+    -fx-font-size: 13px;
+    -fx-font-weight: 500;
+}
+
+.chat-bubble-system {
+    -fx-background-color: -tn-surface;
+    -fx-text-fill: -tn-text;
+    -fx-padding: 8 14 8 14;
+    -fx-background-radius: 16 16 16 2;
+    -fx-font-size: 13px;
+    -fx-font-weight: 500;
 }

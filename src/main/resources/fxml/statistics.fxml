@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.chart.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.libraryplus.ui.StatisticsController"
+      spacing="16" prefWidth="950" prefHeight="720"
+      styleClass="dashboard-root"
+      style="-fx-padding: 24;">
+
+    <!-- Top Header -->
+    <HBox alignment="CENTER_LEFT" spacing="12">
+        <VBox spacing="2">
+            <Label text="📊 Library Analytics &amp; Statistics" styleClass="page-title" />
+            <Label text="Overview of catalog distribution, member engagement, and circulation metrics" styleClass="page-subtitle" />
+        </VBox>
+        <Region HBox.hgrow="ALWAYS" />
+        <Button text="🔄 Refresh" onAction="#onRefresh" styleClass="pill-button" />
+        <Button text="✕ Close" onAction="#onClose" styleClass="button-danger" />
+    </HBox>
+
+    <Separator style="-fx-opacity: 0.25;" />
+
+    <!-- KPI Metric Cards -->
+    <HBox spacing="14" alignment="CENTER">
+        <!-- KPI 1 -->
+        <VBox spacing="4" styleClass="card" HBox.hgrow="ALWAYS" alignment="CENTER_LEFT">
+            <Label text="📚 Catalog Total" styleClass="detail-meta" />
+            <Label fx:id="totalBooksLabel" text="0" style="-fx-font-size: 26px; -fx-font-weight: 800;" />
+            <Label fx:id="totalStockLabel" text="0 copies available" style="-fx-font-size: 11px; -fx-opacity: 0.8;" />
+        </VBox>
+
+        <!-- KPI 2 -->
+        <VBox spacing="4" styleClass="card" HBox.hgrow="ALWAYS" alignment="CENTER_LEFT">
+            <Label text="👥 Registered Users" styleClass="detail-meta" />
+            <Label fx:id="totalUsersLabel" text="0" style="-fx-font-size: 26px; -fx-font-weight: 800;" />
+            <Label fx:id="usersBreakdownLabel" text="0 Members • 0 Admins" style="-fx-font-size: 11px; -fx-opacity: 0.8;" />
+        </VBox>
+
+        <!-- KPI 3 -->
+        <VBox spacing="4" styleClass="card" HBox.hgrow="ALWAYS" alignment="CENTER_LEFT">
+            <Label text="📖 Circulation / Loans" styleClass="detail-meta" />
+            <Label fx:id="totalLoansLabel" text="0" style="-fx-font-size: 26px; -fx-font-weight: 800;" />
+            <Label fx:id="activeLoansLabel" text="0 currently active" style="-fx-font-size: 11px; -fx-opacity: 0.8;" />
+        </VBox>
+
+        <!-- KPI 4 -->
+        <VBox spacing="4" styleClass="card" HBox.hgrow="ALWAYS" alignment="CENTER_LEFT">
+            <Label text="💰 Total Revenue" styleClass="detail-meta" />
+            <Label fx:id="totalRevenueLabel" text="0.00 DT" style="-fx-font-size: 26px; -fx-font-weight: 800; -fx-text-fill: -my-green;" />
+            <Label fx:id="revenueDetailsLabel" text="Purchases + Subscriptions" style="-fx-font-size: 11px; -fx-opacity: 0.8;" />
+        </VBox>
+    </HBox>
+
+    <!-- Visual Charts -->
+    <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS" style="-fx-background-color: transparent; -fx-border-color: transparent;">
+        <VBox spacing="16" style="-fx-background-color: transparent;">
+            <HBox spacing="16" VBox.vgrow="ALWAYS">
+                <!-- Left Chart: Books by Category -->
+                <VBox spacing="8" styleClass="card" HBox.hgrow="ALWAYS" prefHeight="340">
+                    <Label text="📚 Catalog Distribution by Category" styleClass="section-title" />
+                    <PieChart fx:id="categoryPieChart" legendSide="RIGHT" VBox.vgrow="ALWAYS" />
+                </VBox>
+
+                <!-- Right Chart: Membership & Subscriptions -->
+                <VBox spacing="8" styleClass="card" HBox.hgrow="ALWAYS" prefHeight="340">
+                    <Label text="👥 Membership Tier Distribution" styleClass="section-title" />
+                    <PieChart fx:id="membershipPieChart" legendSide="RIGHT" VBox.vgrow="ALWAYS" />
+                </VBox>
+            </HBox>
+
+            <!-- Bottom Chart: Activity & Financial Breakdown -->
+            <VBox spacing="8" styleClass="card" prefHeight="260">
+                <Label text="📈 Circulation &amp; Library Activity Breakdown" styleClass="section-title" />
+                <BarChart fx:id="activityBarChart" legendVisible="false" VBox.vgrow="ALWAYS">
+                    <xAxis>
+                        <CategoryAxis fx:id="activityXAxis" label="Activity Metric" />
+                    </xAxis>
+                    <yAxis>
+                        <NumberAxis fx:id="activityYAxis" label="Count / Units" />
+                    </yAxis>
+                </BarChart>
+            </VBox>
+        </VBox>
+    </ScrollPane>
+</VBox>

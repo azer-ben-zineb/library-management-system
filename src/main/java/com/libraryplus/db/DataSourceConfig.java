@@ -105,10 +105,92 @@ public class DataSourceConfig {
                         System.err.println("Users table missing, creating a minimal users table for H2 fallback.");
                         try {
                             stmt.execute(
-                                    "CREATE TABLE IF NOT EXISTS users (id INT PRIMARY KEY AUTO_INCREMENT, email VARCHAR(255) NOT NULL UNIQUE, password_hash VARCHAR(255) NOT NULL, role_id INT NOT NULL, full_name VARCHAR(255), phone VARCHAR(50), date_of_birth DATE, card_number VARCHAR(64), card_balance DECIMAL(10,2) DEFAULT 0.00, created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP)");
+                                    "CREATE TABLE IF NOT EXISTS users (id INT PRIMARY KEY AUTO_INCREMENT, email VARCHAR(255) NOT NULL UNIQUE, password_hash VARCHAR(255) NOT NULL, salt VARCHAR(255), role_id INT NOT NULL, full_name VARCHAR(255), phone VARCHAR(50), date_of_birth DATE, card_number VARCHAR(512), card_balance DECIMAL(10,2) DEFAULT 0.00, created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP)");
                         } catch (SQLException ex2) {
                             System.err.println("Failed to create minimal users table: " + ex2.getMessage());
                         }
+                    }
+
+                    // Ensure card_number column is wide enough for encrypted data
+                    try {
+                        stmt.execute("ALTER TABLE users ALTER COLUMN card_number VARCHAR(512)");
+                    } catch (SQLException exAlter) {
+                        // Column may already be correct size or ALTER not supported
+                    }
+
+                    try {
+                        try (java.sql.ResultSet rs = stmt.executeQuery("SELECT COUNT(*) AS cnt FROM users")) {
+                            if (rs.next() && rs.getInt("cnt") == 0) {
+                                String adminHash = com.libraryplus.util.PasswordUtils.hashPassword("admin123");
+                                String clientHash = com.libraryplus.util.PasswordUtils.hashPassword("client123");
+                                String adminCard = com.libraryplus.util.EncryptionUtils.encrypt("4000123456789010");
+                                String clientCard = com.libraryplus.util.EncryptionUtils.encrypt("4000123456789020");
+
+                                System.out.println("[H2 Seed] Seeding default admin and client users...");
+
+                                try (java.sql.PreparedStatement ps = c.prepareStatement(
+                                        "INSERT INTO users (email, password_hash, role_id, full_name, phone, date_of_birth, card_number, card_balance) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+                                        java.sql.Statement.RETURN_GENERATED_KEYS)) {
+                                    // Seed Admin
+                                    ps.setString(1, "admin@libraryplus.com");
+                                    ps.setString(2, adminHash);
+                                    ps.setInt(3, 1);
+                                    ps.setString(4, "Administrator");
+                                    ps.setString(5, "+1234567890");
+                                    ps.setDate(6, java.sql.Date.valueOf("1990-01-01"));
+                                    ps.setString(7, adminCard);
+                                    ps.setDouble(8, 150.00);
+                                    ps.executeUpdate();
+                                    System.out.println("[H2 Seed] Admin user seeded: admin@libraryplus.com");
+
+                                    // Seed Client
+                                    ps.setString(1, "client@libraryplus.com");
+                                    ps.setString(2, clientHash);
+                                    ps.setInt(3, 2);
+                                    ps.setString(4, "John Reader");
+                                    ps.setString(5, "+1987654321");
+                                    ps.setDate(6, java.sql.Date.valueOf("1995-05-15"));
+                                    ps.setString(7, clientCard);
+                                    ps.setDouble(8, 50.00);
+                                    ps.executeUpdate();
+                                    System.out.println("[H2 Seed] Client user seeded: client@libraryplus.com");
+
+                                    int clientUserId = 2;
+                                    try (java.sql.ResultSet keys = ps.getGeneratedKeys()) {
+                                        if (keys != null && keys.next()) clientUserId = keys.getInt(1);
+                                    }
+
+                                    try (java.sql.PreparedStatement cps = c.prepareStatement(
+                                            "INSERT INTO clients (user_id, phone, first_name, last_name, date_of_birth, membership_type) VALUES (?, ?, ?, ?, ?, ?)")) {
+                                        cps.setInt(1, clientUserId);
+                                        cps.setString(2, "+1987654321");
+                                        cps.setString(3, "John");
+                                        cps.setString(4, "Reader");
+                                        cps.setDate(5, java.sql.Date.valueOf("1995-05-15"));
+                                        cps.setString(6, "STANDARD");
+                                        cps.executeUpdate();
+                                    }
+                                }
+
+                                // Verify seeded users can authenticate
+                                try (java.sql.ResultSet verify = stmt.executeQuery(
+                                        "SELECT email, password_hash FROM users WHERE email IN ('admin@libraryplus.com', 'client@libraryplus.com')")) {
+                                    int verified = 0;
+                                    while (verify.next()) {
+                                        String email = verify.getString("email");
+                                        String hash = verify.getString("password_hash");
+                                        String testPwd = email.startsWith("admin") ? "admin123" : "client123";
+                                        boolean ok = com.libraryplus.util.PasswordUtils.verifyPassword(testPwd, hash);
+                                        System.out.println("[H2 Seed] Verify " + email + " -> " + (ok ? "OK" : "FAILED"));
+                                        if (ok) verified++;
+                                    }
+                                    System.out.println("[H2 Seed] Verified " + verified + "/2 seeded users.");
+                                }
+                            }
+                        }
+                    } catch (Exception exSeed) {
+                        System.err.println("Could not seed default users: " + exSeed.getMessage());
+                        exSeed.printStackTrace();
                     }
 
                     try {
@@ -121,6 +203,8 @@ public class DataSourceConfig {
                                     "title VARCHAR(255) NOT NULL, " +
                                     "author VARCHAR(255), " +
                                     "category VARCHAR(50), " +
+                                    "stock INT DEFAULT 1, " +
+                                    "price DECIMAL(10,2) DEFAULT 1.00, " +
                                     "availability_status VARCHAR(50) DEFAULT 'AVAILABLE', " +
                                     "cover_image_path VARCHAR(1024), " +
                                     "description CLOB, " +
@@ -128,6 +212,18 @@ public class DataSourceConfig {
                         } catch (SQLException ex2) {
                             System.err.println("Failed to create minimal books table: " + ex2.getMessage());
                         }
+                    }
+
+                    try {
+                        stmt.execute("CREATE TABLE IF NOT EXISTS transactions (" +
+                                "id INT AUTO_INCREMENT PRIMARY KEY, " +
+                                "client_id INT NOT NULL, " +
+                                "amount DECIMAL(10,2) NOT NULL, " +
+                                "reason VARCHAR(255), " +
+                                "timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP, " +
+                                "resulting_balance DECIMAL(10,2))");
+                    } catch (SQLException exTrans) {
+                        // ignore if exists
                     }
 
                     try {
@@ -173,40 +269,10 @@ public class DataSourceConfig {
                                     }
                                 }
 
-                                try (java.sql.PreparedStatement ps = c.prepareStatement(
-                                        "INSERT INTO books (isbn, title, author, category, availability_status, cover_image_path, description) VALUES (?, ?, ?, ?, ?, ?, ? )")) {
-                                    ps.setString(1, "9780132350884");
-                                    ps.setString(2, "Clean Code");
-                                    ps.setString(3, "Robert C. Martin");
-                                    ps.setString(4, "Software");
-                                    ps.setString(5, "AVAILABLE");
-                                    ps.setString(6,
-                                            finalImagesDir != null ? finalImagesDir.resolve("sample1.png").toString()
-                                                    : null);
-                                    ps.setString(7, "A Handbook of Agile Software Craftsmanship.");
-                                    ps.executeUpdate();
-
-                                    ps.setString(1, "9780201485677");
-                                    ps.setString(2, "Refactoring");
-                                    ps.setString(3, "Martin Fowler");
-                                    ps.setString(4, "Software");
-                                    ps.setString(5, "AVAILABLE");
-                                    ps.setString(6,
-                                            finalImagesDir != null ? finalImagesDir.resolve("sample2.png").toString()
-                                                    : null);
-                                    ps.setString(7, "Improving the Design of Existing Code.");
-                                    ps.executeUpdate();
-
-                                    ps.setString(1, "9780262033848");
-                                    ps.setString(2, "Introduction to Algorithms");
-                                    ps.setString(3, "Cormen, Leiserson, Rivest, Stein");
-                                    ps.setString(4, "Algorithms");
-                                    ps.setString(5, "AVAILABLE");
-                                    ps.setString(6,
-                                            finalImagesDir != null ? finalImagesDir.resolve("sample1.png").toString()
-                                                    : null);
-                                    ps.setString(7, "Comprehensive algorithm textbook.");
-                                    ps.executeUpdate();
+                                try {
+                                    UniversalSeedRunner.main(new String[0]);
+                                } catch (Throwable seedEx) {
+                                    System.err.println("UniversalSeedRunner failed, fallback to basic seed: " + seedEx.getMessage());
                                 }
                             }
                         }
@@ -257,6 +323,10 @@ public class DataSourceConfig {
                 continue;
             }
             if (line.matches("(?i)^INSERT\\s+IGNORE\\s+.*")) {
+                continue;
+            }
+            if (line.matches("(?i)^SET\\s+@.*") || line.matches("(?i)^PREPARE\\s+.*")
+                    || line.matches("(?i)^EXECUTE\\s+.*") || line.matches("(?i)^DEALLOCATE\\s+.*")) {
                 continue;
             }
             line = line.replaceAll("(?i)ENGINE=[^;\\s]+;?", "");

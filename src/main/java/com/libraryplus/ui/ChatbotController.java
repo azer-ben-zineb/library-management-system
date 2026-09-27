@@ -48,13 +48,12 @@ public class ChatbotController {
     private void addUserMessage(String text) {
         HBox hbox = new HBox();
         hbox.setAlignment(Pos.CENTER_RIGHT);
-        hbox.setPadding(new Insets(5));
+        hbox.setPadding(new Insets(4, 8, 4, 8));
 
         Label label = new Label(text);
-        label.setStyle(
-                "-fx-background-color: #89b4fa; -fx-text-fill: #1e1e2e; -fx-padding: 8 12; -fx-background-radius: 15; -fx-font-size: 14px;");
+        label.getStyleClass().add("chat-bubble-user");
         label.setWrapText(true);
-        label.setMaxWidth(300);
+        label.setMaxWidth(320);
 
         hbox.getChildren().add(label);
         chatContainer.getChildren().add(hbox);
@@ -63,13 +62,12 @@ public class ChatbotController {
     private void addSystemMessage(String text) {
         HBox hbox = new HBox();
         hbox.setAlignment(Pos.CENTER_LEFT);
-        hbox.setPadding(new Insets(5));
+        hbox.setPadding(new Insets(4, 8, 4, 8));
 
         Label label = new Label(text);
-        label.setStyle(
-                "-fx-background-color: #313244; -fx-text-fill: #cdd6f4; -fx-padding: 8 12; -fx-background-radius: 15; -fx-font-size: 14px;");
+        label.getStyleClass().add("chat-bubble-system");
         label.setWrapText(true);
-        label.setMaxWidth(300);
+        label.setMaxWidth(320);
 
         hbox.getChildren().add(label);
         chatContainer.getChildren().add(hbox);

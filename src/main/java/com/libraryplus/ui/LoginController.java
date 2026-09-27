@@ -23,12 +23,29 @@ public class LoginController {
     @FXML private PasswordField passwordField;
     @FXML private Button loginButton;
     @FXML private javafx.scene.control.ToggleButton loginThemeToggle;
+    @FXML private Button musicToggleButton;
+    @FXML private Slider volumeSlider;
     @FXML private Label messageLabel; 
     private javafx.stage.Popup loginPreviewPopup;
     private final LoginPresenter presenter = new LoginPresenter();
     private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
     @FXML
     public void initialize() {
+        // Initialize sound controls
+        try {
+            com.libraryplus.util.AudioManager audio = com.libraryplus.util.AudioManager.getInstance();
+            if (volumeSlider != null) {
+                volumeSlider.setValue(audio.getVolume());
+                volumeSlider.valueProperty().addListener((obs, oldVal, newVal) -> {
+                    audio.setVolume(newVal.doubleValue());
+                });
+            }
+            if (musicToggleButton != null) {
+                updateMusicButtonIcon();
+            }
+        } catch (Exception ex) {
+            logger.warn("Failed to initialize login sound controls", ex);
+        }
         
         try {
             String pref = com.libraryplus.util.ThemeManager.loadThemePreference();
@@ -55,6 +72,24 @@ public class LoginController {
             }
         } catch (Exception ex) {
             logger.warn("Failed to initialize login theme toggle", ex);
+        }
+    }
+    
+    @FXML
+    protected void onToggleMusic(ActionEvent event) {
+        com.libraryplus.util.AudioManager audio = com.libraryplus.util.AudioManager.getInstance();
+        audio.toggleMute();
+        updateMusicButtonIcon();
+    }
+
+    private void updateMusicButtonIcon() {
+        if (musicToggleButton != null) {
+            com.libraryplus.util.AudioManager audio = com.libraryplus.util.AudioManager.getInstance();
+            if (audio.isMuted()) {
+                musicToggleButton.setText("🔇");
+            } else {
+                musicToggleButton.setText("🔊");
+            }
         }
     }
     
@@ -86,6 +121,40 @@ public class LoginController {
         return null;
     }
     @FXML
+    protected void onQuickAdmin(ActionEvent event) {
+        quickFill("admin@libraryplus.com", "admin123", "Admin credentials filled.");
+    }
+
+    @FXML
+    protected void onQuickClient(ActionEvent event) {
+        quickFill("client@libraryplus.com", "client123", "Member credentials filled.");
+    }
+
+    private void quickFill(String email, String password, String msg) {
+        Platform.runLater(() -> {
+            if (emailField != null) {
+                emailField.setText(email);
+                emailField.positionCaret(email.length());
+            }
+            if (passwordField != null) {
+                passwordField.setText(password);
+            }
+            if (messageLabel != null) {
+                messageLabel.setText(msg);
+                messageLabel.setStyle("-fx-font-size: 12px; -fx-padding: 4 0 0 0; -fx-text-fill: #a6e3a1;");
+                // Reset style after 2 seconds
+                javafx.animation.PauseTransition pause = new javafx.animation.PauseTransition(javafx.util.Duration.seconds(2));
+                pause.setOnFinished(e -> messageLabel.setStyle("-fx-font-size: 12px; -fx-padding: 4 0 0 0;"));
+                pause.play();
+            }
+            if (loginButton != null) {
+                loginButton.requestFocus();
+            }
+            logger.info("Quick fill applied: {}", email);
+        });
+    }
+
+    @FXML
     protected void onLogin(ActionEvent event) {
         String email = emailField.getText();
         String password = passwordField.getText();
@@ -94,7 +163,7 @@ public class LoginController {
             User u = user.get();
             Session.setCurrentUser(u);
             messageLabel.setText("Login successful. Welcome " + u.getFullName());
-            javafx.animation.RotateTransition rt = new javafx.animation.RotateTransition(javafx.util.Duration.millis(600), loginButton);
+            javafx.animation.RotateTransition rt = new javafx.animation.RotateTransition(javafx.util.Duration.millis(300), loginButton);
             rt.setByAngle(360);
             rt.setOnFinished(ev -> {
                 try {
@@ -106,7 +175,7 @@ public class LoginController {
                     Parent root = loader.load();
                     Stage stage = new Stage();
                     stage.setTitle("LibraryPlus - Dashboard");
-                    Scene scene = new Scene(root, 800, 600);
+                    Scene scene = new Scene(root, 1100, 720);
                     
                     try {
                         scene.setFill(javafx.scene.paint.Color.web("#1e1e2e"));
@@ -196,7 +265,10 @@ public class LoginController {
             });
             rt.play();
         } else {
-            messageLabel.setText("Invalid credentials.");
+            String emailInput = emailField.getText();
+            logger.warn("Login failed for email: {}", emailInput);
+            messageLabel.setText("Invalid email or password. Please try again.");
+            messageLabel.setStyle("-fx-font-size: 12px; -fx-padding: 4 0 0 0; -fx-text-fill: #f38ba8;");
             playShake(loginButton);
         }
     }

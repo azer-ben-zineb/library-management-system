@@ -83,7 +83,7 @@ public class RegisterController {
 
         
         try {
-            String result = presenter.register(email, password, fullName, phone, dobPicker.getValue(), card == null || card.isBlank() ? null : card.trim(), cardBalance);
+            String result = presenter.register(email, password, fullName, phone, dobPicker.getValue(), card == null || card.isBlank() ? null : card.trim(), cardBalance, role);
             messageLabel.setText(result);
             Stage owner = (Stage) messageLabel.getScene().getWindow();
             if (result != null && result.toLowerCase().contains("success")) {

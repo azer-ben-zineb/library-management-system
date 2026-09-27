@@ -1,41 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<GridPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.libraryplus.ui.AddBookController" hgap="10" vgap="10" alignment="CENTER">
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="com.libraryplus.ui.AddBookController"
+      spacing="16" alignment="CENTER" prefWidth="500" styleClass="card"
+      stylesheets="@/css/catppuccin-mocha.css">
     <padding>
-        <Insets top="20" right="20" left="20" bottom="20"/>
+        <Insets top="28" right="28" bottom="28" left="28"/>
     </padding>
 
-    <Label text="Add Book" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2" style="-fx-font-size: 16px; -fx-font-weight: bold;" />
+    <!-- Header -->
+    <VBox spacing="4" alignment="CENTER_LEFT">
+        <Label text="📖 Book Catalog Entry" styleClass="title-label" />
+        <Label text="Add a new volume to the library collection or update existing metadata." styleClass="section-sub" />
+    </VBox>
 
-    <Label text="ISBN:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-    <TextField fx:id="isbnField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+    <GridPane hgap="12" vgap="12">
+        <columnConstraints>
+            <ColumnConstraints minWidth="110" prefWidth="120" />
+            <ColumnConstraints hgrow="ALWAYS" />
+        </columnConstraints>
 
-    <Label text="Title:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-    <TextField fx:id="titleField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+        <Label text="ISBN Number:" GridPane.columnIndex="0" GridPane.rowIndex="0" styleClass="field-label" />
+        <TextField fx:id="isbnField" promptText="e.g. 9780134685991" GridPane.columnIndex="1" GridPane.rowIndex="0" />
 
-    <Label text="Author:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-    <TextField fx:id="authorField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+        <Label text="Book Title:" GridPane.columnIndex="0" GridPane.rowIndex="1" styleClass="field-label" />
+        <TextField fx:id="titleField" promptText="Enter full book title" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
-    <Label text="Category:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
-    <TextField fx:id="categoryField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+        <Label text="Author:" GridPane.columnIndex="0" GridPane.rowIndex="2" styleClass="field-label" />
+        <TextField fx:id="authorField" promptText="e.g. Joshua Bloch" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
-    <Label text="Description:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
-    <TextArea fx:id="descriptionArea" prefRowCount="4" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+        <Label text="Category / Genre:" GridPane.columnIndex="0" GridPane.rowIndex="3" styleClass="field-label" />
+        <TextField fx:id="categoryField" promptText="e.g. Computer Science, Fiction" GridPane.columnIndex="1" GridPane.rowIndex="3" />
 
-    <Label text="Stock:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
-    <TextField fx:id="stockField" promptText="Number of copies" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+        <Label text="Description:" GridPane.columnIndex="0" GridPane.rowIndex="4" styleClass="field-label" />
+        <TextArea fx:id="descriptionArea" prefRowCount="3" promptText="Brief synopsis or overview..." wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="4" />
 
-    <Label text="Price:" GridPane.columnIndex="0" GridPane.rowIndex="7" />
-    <TextField fx:id="priceField" promptText="Price (e.g., 25.99)" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+        <Label text="Stock Quantity:" GridPane.columnIndex="0" GridPane.rowIndex="5" styleClass="field-label" />
+        <TextField fx:id="stockField" promptText="Copies in stock (e.g. 5)" GridPane.columnIndex="1" GridPane.rowIndex="5" />
 
-    <HBox spacing="10" GridPane.columnIndex="0" GridPane.rowIndex="8" GridPane.columnSpan="2" alignment="CENTER_RIGHT">
-        <Button text="Cancel" onAction="#onCancel" />
-        <Button fx:id="saveButton" text="Save" onAction="#onSave" />
+        <Label text="Unit Price (DT):" GridPane.columnIndex="0" GridPane.rowIndex="6" styleClass="field-label" />
+        <TextField fx:id="priceField" promptText="Price in DT (e.g. 29.50)" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+    </GridPane>
+
+    <Label fx:id="messageLabel" wrapText="true" style="-fx-text-fill: -cp-red; -fx-font-weight: bold;" />
+
+    <HBox spacing="12" alignment="CENTER_RIGHT">
+        <Button text="Cancel" onAction="#onCancel" styleClass="button-secondary" />
+        <Button fx:id="saveButton" text="💾 Save Book" onAction="#onSave" styleClass="button-primary" />
     </HBox>
-
-    <Label fx:id="messageLabel" GridPane.columnIndex="0" GridPane.rowIndex="9" GridPane.columnSpan="2" />
-</GridPane>
-
+</VBox>

@@ -26,8 +26,8 @@ public class LoanDaoJdbc implements LoanDao {
                 PreparedStatement ps = c.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, loan.getBookIsbn());
             ps.setInt(2, loan.getClientId());
-            ps.setObject(3, loan.getBorrowDate());
-            ps.setObject(4, loan.getExpectedReturnDate());
+            ps.setTimestamp(3, loan.getBorrowDate() != null ? java.sql.Timestamp.valueOf(loan.getBorrowDate()) : java.sql.Timestamp.valueOf(java.time.LocalDateTime.now()));
+            ps.setTimestamp(4, loan.getExpectedReturnDate() != null ? java.sql.Timestamp.valueOf(loan.getExpectedReturnDate()) : java.sql.Timestamp.valueOf(java.time.LocalDateTime.now().plusWeeks(2)));
             int affected = ps.executeUpdate();
             try (ResultSet keys = ps.getGeneratedKeys()) {
                 if (keys.next())
@@ -137,7 +137,7 @@ public class LoanDaoJdbc implements LoanDao {
         String sql = "UPDATE loans SET fine_amount = ?, actual_return_date = ? WHERE id = ?";
         try (Connection c = ds.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
             ps.setDouble(1, loan.getFineAmount());
-            ps.setObject(2, loan.getActualReturnDate());
+            ps.setTimestamp(2, loan.getActualReturnDate() != null ? java.sql.Timestamp.valueOf(loan.getActualReturnDate()) : null);
             ps.setInt(3, loan.getId());
             ps.executeUpdate();
         }

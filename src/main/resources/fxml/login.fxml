@@ -1,22 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox alignment="CENTER" spacing="10.0" xmlns:fx="http://javafx.com/fxml" fx:controller="com.libraryplus.ui.LoginController">
-    <padding>
-        <Insets top="20" right="20" left="20" bottom="20"/>
-    </padding>
-    <HBox alignment="CENTER_RIGHT" prefWidth="600">
-        <Region HBox.hgrow="ALWAYS" />
-        <ToggleButton fx:id="loginThemeToggle" text="🌙" />
-    </HBox>
-    <Label text="LibraryPlus" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
-    <TextField fx:id="emailField" promptText="Email" />
-    <PasswordField fx:id="passwordField" promptText="Password" />
-    <HBox spacing="10">
-        <Button fx:id="loginButton" text="Login" onAction="#onLogin" />
-        <Button text="Register" onAction="#onRegister" />
-    </HBox>
-    <Label fx:id="messageLabel" />
-</VBox>
+<StackPane xmlns:fx="http://javafx.com/fxml"
+           fx:controller="com.libraryplus.ui.LoginController"
+           prefWidth="800" prefHeight="600"
+           style="-fx-padding: 30;">
+
+    <VBox alignment="CENTER" maxWidth="440" spacing="16" styleClass="login-card">
+        <!-- Top header with logo, sound controls, and theme toggle -->
+        <HBox alignment="CENTER_LEFT" spacing="10">
+            <Label text="📚 LibraryPlus" style="-fx-font-size: 22px; -fx-font-weight: 800;" />
+            <Region HBox.hgrow="ALWAYS" />
+            <Button fx:id="musicToggleButton" text="🔊" onAction="#onToggleMusic" styleClass="pill-button" />
+            <Slider fx:id="volumeSlider" min="0" max="1" value="0.35" blockIncrement="0.05" prefWidth="70" />
+            <ToggleButton fx:id="loginThemeToggle" text="🌙" styleClass="pill-button" />
+        </HBox>
+
+        <Label text="Sign in to your library management account" styleClass="page-subtitle" wrapText="true" />
+
+        <Separator style="-fx-opacity: 0.25;" />
+
+        <!-- Form fields -->
+        <VBox spacing="6" alignment="CENTER_LEFT">
+            <Label text="Email Address" style="-fx-font-weight: 600; -fx-font-size: 12px;" />
+            <TextField fx:id="emailField" promptText="admin@libraryplus.com" prefHeight="38" />
+        </VBox>
+
+        <VBox spacing="6" alignment="CENTER_LEFT">
+            <Label text="Password" style="-fx-font-weight: 600; -fx-font-size: 12px;" />
+            <PasswordField fx:id="passwordField" promptText="••••••••" prefHeight="38" />
+        </VBox>
+
+        <!-- Quick Fill Helpers -->
+        <HBox spacing="8" alignment="CENTER_LEFT">
+            <Label text="Quick fill:" style="-fx-font-size: 11px; -fx-opacity: 0.7;" />
+            <Button text="⚡ Admin" onAction="#onQuickAdmin" styleClass="pill-button" />
+            <Button text="⚡ Member" onAction="#onQuickClient" styleClass="pill-button" />
+        </HBox>
+
+        <!-- Action buttons -->
+        <VBox spacing="10" style="-fx-padding: 8 0 0 0;">
+            <Button fx:id="loginButton" text="Sign In" onAction="#onLogin"
+                    maxWidth="Infinity" prefHeight="40" styleClass="button-primary" />
+            <Button text="Create New Account" onAction="#onRegister"
+                    maxWidth="Infinity" prefHeight="36" />
+        </VBox>
+
+        <!-- Status message -->
+        <Label fx:id="messageLabel" wrapText="true" alignment="CENTER"
+               style="-fx-font-size: 12px; -fx-padding: 4 0 0 0;" />
+    </VBox>
+</StackPane>

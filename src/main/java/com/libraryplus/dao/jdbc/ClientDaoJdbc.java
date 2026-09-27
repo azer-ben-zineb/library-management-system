@@ -47,11 +47,15 @@ public class ClientDaoJdbc implements ClientDao {
         try (Connection c = ds.getConnection();
                 PreparedStatement ps = c.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
             ps.setInt(1, client.getUserId());
-            ps.setString(2, client.getPhone());
-            ps.setString(3, client.getFirstName());
-            ps.setString(4, client.getLastName());
-            ps.setObject(5, client.getDateOfBirth());
-            ps.setString(6, client.getMembershipType());
+            String phone = client.getPhone();
+            if (phone == null || phone.isBlank()) {
+                phone = "+216" + Math.abs((client.getUserId() * 10007 + 1000) % 100000000);
+            }
+            ps.setString(2, phone.trim());
+            ps.setString(3, client.getFirstName() != null ? client.getFirstName() : "Member");
+            ps.setString(4, client.getLastName() != null ? client.getLastName() : "");
+            ps.setDate(5, client.getDateOfBirth() != null ? java.sql.Date.valueOf(client.getDateOfBirth()) : null);
+            ps.setString(6, client.getMembershipType() != null ? client.getMembershipType() : "STANDARD");
             int affected = ps.executeUpdate();
             try (ResultSet keys = ps.getGeneratedKeys()) {
                 if (keys.next())
@@ -107,5 +111,15 @@ public class ClientDaoJdbc implements ClientDao {
             e.printStackTrace();
         }
         return clients;
+    }
+
+    @Override
+    public void updateMembershipType(int clientId, String membershipType) throws Exception {
+        String sql = "UPDATE clients SET membership_type = ? WHERE id = ?";
+        try (Connection c = ds.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setString(1, membershipType);
+            ps.setInt(2, clientId);
+            ps.executeUpdate();
+        }
     }
 }

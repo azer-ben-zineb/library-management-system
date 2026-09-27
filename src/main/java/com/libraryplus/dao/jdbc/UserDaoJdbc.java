@@ -36,8 +36,13 @@ public class UserDaoJdbc implements UserDao {
                     
                     String storedCard = rs.getString("card_number");
                     if (storedCard != null) {
-                        String decrypted = EncryptionUtils.decrypt(storedCard);
-                        u.setCardNumber(decrypted);
+                        try {
+                            String decrypted = EncryptionUtils.decrypt(storedCard);
+                            u.setCardNumber(decrypted);
+                        } catch (Exception e) {
+                            // Decryption may fail if the encryption key changed between runs
+                            u.setCardNumber("****");
+                        }
                     }
                     u.setCardBalance(rs.getDouble("card_balance"));
                     return Optional.of(u);
@@ -102,8 +107,12 @@ public class UserDaoJdbc implements UserDao {
                     
                     String storedCard = rs.getString("card_number");
                     if (storedCard != null) {
-                        String decrypted = EncryptionUtils.decrypt(storedCard);
-                        u.setCardNumber(decrypted);
+                        try {
+                            String decrypted = EncryptionUtils.decrypt(storedCard);
+                            u.setCardNumber(decrypted);
+                        } catch (Exception e) {
+                            u.setCardNumber("****");
+                        }
                     }
                     u.setCardBalance(rs.getDouble("card_balance"));
                     return Optional.of(u);

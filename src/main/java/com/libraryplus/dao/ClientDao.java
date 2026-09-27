@@ -13,4 +13,6 @@ public interface ClientDao {
     Optional<Client> findById(int id) throws Exception;
 
     List<Client> findAll() throws Exception;
+
+    void updateMembershipType(int clientId, String membershipType) throws Exception;
 }

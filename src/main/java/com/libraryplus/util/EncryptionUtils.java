@@ -30,12 +30,10 @@ public final class EncryptionUtils {
         }
         if (k == null) {
             try {
-                KeyGenerator kg = KeyGenerator.getInstance("AES");
-                kg.init(256);
-                k = kg.generateKey();
-                System.err.println("Warning: CARD_ENC_KEY not set; using ephemeral encryption key (not persistent). Set env var CARD_ENC_KEY=base64(key) for persistent encryption.");
+                // Use a deterministic default 256-bit key for dev/demo so persisted cards can be decrypted across restarts
+                byte[] devKey = "LibraryPlusSecretEncryptionKey32".getBytes(java.nio.charset.StandardCharsets.UTF_8);
+                k = new SecretKeySpec(devKey, "AES");
             } catch (Exception e) {
-                
                 try {
                     KeyGenerator kg = KeyGenerator.getInstance("AES");
                     kg.init(128);

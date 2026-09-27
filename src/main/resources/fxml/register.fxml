@@ -1,47 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.*?>
 
-<GridPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.libraryplus.ui.RegisterController" hgap="10" vgap="10" alignment="CENTER">
-    <padding>
-        <Insets top="20" right="20" left="20" bottom="20"/>
-    </padding>
+<StackPane xmlns:fx="http://javafx.com/fxml"
+           fx:controller="com.libraryplus.ui.RegisterController"
+           prefWidth="640" prefHeight="620"
+           style="-fx-padding: 24;">
 
-    <Label text="Register" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2" style="-fx-font-size: 16px; -fx-font-weight: bold;" />
+    <VBox spacing="14" maxWidth="560" styleClass="card" alignment="TOP_CENTER">
+        <HBox alignment="CENTER_LEFT" spacing="10">
+            <Label text="📝 Create New Account" styleClass="page-title" />
+            <Region HBox.hgrow="ALWAYS" />
+        </HBox>
+        <Label text="Join LibraryPlus to borrow, read, and manage your digital library collection."
+               styleClass="page-subtitle" wrapText="true" />
 
-    <Label text="Full name:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-    <TextField fx:id="fullNameField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+        <Separator style="-fx-opacity: 0.25;" />
 
-    <Label text="Email:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-    <TextField fx:id="emailField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+        <GridPane hgap="16" vgap="12" alignment="CENTER">
+            <!-- Left Column: Personal Info -->
+            <Label text="Full Name:" GridPane.columnIndex="0" GridPane.rowIndex="0" style="-fx-font-weight: 600;" />
+            <TextField fx:id="fullNameField" promptText="e.g. Alice Smith"
+                       GridPane.columnIndex="1" GridPane.rowIndex="0" prefWidth="180" />
 
-    <Label text="Password:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-    <PasswordField fx:id="passwordField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label text="Email Address:" GridPane.columnIndex="0" GridPane.rowIndex="1" style="-fx-font-weight: 600;" />
+            <TextField fx:id="emailField" promptText="alice@example.com"
+                       GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
-    <Label text="Phone:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
-    <TextField fx:id="phoneField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label text="Password:" GridPane.columnIndex="0" GridPane.rowIndex="2" style="-fx-font-weight: 600;" />
+            <PasswordField fx:id="passwordField" promptText="At least 8 characters"
+                           GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
-    <Label text="Date of birth:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
-    <DatePicker fx:id="dobPicker" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Label text="Account Role:" GridPane.columnIndex="0" GridPane.rowIndex="3" style="-fx-font-weight: 600;" />
+            <ChoiceBox fx:id="roleChoice" GridPane.columnIndex="1" GridPane.rowIndex="3" prefWidth="180" />
 
-    <Label text="Age (years):" GridPane.columnIndex="0" GridPane.rowIndex="6" />
-    <TextField fx:id="ageField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <!-- Right Column: Membership & Card -->
+            <Label text="Phone Number:" GridPane.columnIndex="2" GridPane.rowIndex="0" style="-fx-font-weight: 600;" />
+            <TextField fx:id="phoneField" promptText="+1 234 567 890"
+                       GridPane.columnIndex="3" GridPane.rowIndex="0" prefWidth="180" />
 
-    <Label text="Card number (min. 16 digits):" GridPane.columnIndex="0" GridPane.rowIndex="7" />
-    <TextField fx:id="cardNumberField" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <Label text="Date of Birth:" GridPane.columnIndex="2" GridPane.rowIndex="1" style="-fx-font-weight: 600;" />
+            <DatePicker fx:id="dobPicker" GridPane.columnIndex="3" GridPane.rowIndex="1" prefWidth="180" />
 
-    <Label text="Card balance:" GridPane.columnIndex="0" GridPane.rowIndex="8" />
-    <TextField fx:id="cardBalanceField" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <Label text="Age (years):" GridPane.columnIndex="2" GridPane.rowIndex="2" style="-fx-font-weight: 600;" />
+            <TextField fx:id="ageField" promptText="e.g. 25"
+                       GridPane.columnIndex="3" GridPane.rowIndex="2" />
 
-    <Label text="Role:" GridPane.columnIndex="0" GridPane.rowIndex="9" />
-    <ChoiceBox fx:id="roleChoice" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+            <Label text="Card Number:" GridPane.columnIndex="2" GridPane.rowIndex="3" style="-fx-font-weight: 600;" />
+            <TextField fx:id="cardNumberField" promptText="16-digit library card"
+                       GridPane.columnIndex="3" GridPane.rowIndex="3" />
 
-    <HBox spacing="10" GridPane.columnIndex="0" GridPane.rowIndex="10" GridPane.columnSpan="2" alignment="CENTER_RIGHT">
-        <Button text="Cancel" onAction="#onCancel" />
-        <Button fx:id="registerButton" text="Register" onAction="#onRegister" />
-    </HBox>
+            <Label text="Initial Balance (DT):" GridPane.columnIndex="0" GridPane.rowIndex="4" style="-fx-font-weight: 600;" />
+            <TextField fx:id="cardBalanceField" promptText="50.00" text="50.00"
+                       GridPane.columnIndex="1" GridPane.rowIndex="4" />
+        </GridPane>
 
-    <Label fx:id="messageLabel" GridPane.columnIndex="0" GridPane.rowIndex="11" GridPane.columnSpan="2" />
-</GridPane>
+        <Separator style="-fx-opacity: 0.25;" />
+
+        <HBox spacing="12" alignment="CENTER_RIGHT">
+            <Button text="Cancel" onAction="#onCancel" prefWidth="100" prefHeight="36" />
+            <Button fx:id="registerButton" text="Complete Registration" onAction="#onRegister"
+                    prefHeight="36" styleClass="button-primary" />
+        </HBox>
+
+        <Label fx:id="messageLabel" wrapText="true" alignment="CENTER"
+               style="-fx-font-size: 12px; -fx-padding: 4 0 0 0;" />
+    </VBox>
+</StackPane>

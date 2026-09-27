@@ -45,6 +45,8 @@ CREATE TABLE IF NOT EXISTS books (
   title VARCHAR(255) NOT NULL,
   author VARCHAR(255),
   category VARCHAR(50),
+  stock INT DEFAULT 1,
+  price DECIMAL(10,2) DEFAULT 1.00,
   availability_status VARCHAR(50) DEFAULT 'AVAILABLE',
   cover_image_path VARCHAR(1024),
   description TEXT,
@@ -161,23 +163,6 @@ CREATE TABLE IF NOT EXISTS login_events (
 INSERT IGNORE INTO roles (name) VALUES ('ADMIN'), ('CLIENT');
 
 
-SET @dbname = DATABASE();
-SET @tablename = 'books';
-SET @columnname = 'stock';
-SET @preparedStatement = (SELECT IF(
-  (
-    SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS
-    WHERE
-      (table_name = @tablename)
-      AND (table_schema = @dbname)
-      AND (column_name = @columnname)
-  ) > 0,
-  'SELECT 1',
-  CONCAT('ALTER TABLE ', @tablename, ' ADD COLUMN ', @columnname, ' INT DEFAULT 1')
-));
-PREPARE alterIfNotExists FROM @preparedStatement;
-EXECUTE alterIfNotExists;
-DEALLOCATE PREPARE alterIfNotExists;
 
 UPDATE books SET stock = 12 WHERE category LIKE '%Fiction%' OR category LIKE '%Novel%';
 UPDATE books SET stock = 5 WHERE category LIKE '%Science%' OR category LIKE '%Programming%' OR category LIKE '%Computer%';
@@ -186,34 +171,14 @@ UPDATE books SET stock = 10 WHERE category LIKE '%Business%' OR category LIKE '%
 UPDATE books SET stock = 7 WHERE category LIKE '%Art%' OR category LIKE '%Philosophy%';
 UPDATE books SET stock = 15 WHERE category LIKE '%Children%' OR category LIKE '%Young Adult%';
 UPDATE books SET stock = 6 WHERE category LIKE '%Poetry%' OR category LIKE '%Drama%';
-
-
 UPDATE books SET stock = 8 WHERE stock = 1;
-
-
-SET @columnname = 'price';
-SET @preparedStatement = (SELECT IF(
-  (
-    SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS
-    WHERE
-      (table_name = @tablename)
-      AND (table_schema = @dbname)
-      AND (column_name = @columnname)
-  ) > 0,
-  'SELECT 1',
-  CONCAT('ALTER TABLE ', @tablename, ' ADD COLUMN ', @columnname, ' DECIMAL(10,2) DEFAULT 1.00')
-));
-PREPARE alterIfNotExists FROM @preparedStatement;
-EXECUTE alterIfNotExists;
-DEALLOCATE PREPARE alterIfNotExists;
 
 UPDATE books SET price = 12.00 WHERE (category LIKE '%Fiction%' OR category LIKE '%Novel%') AND (price = 1.00 OR price IS NULL);
 UPDATE books SET price = 34.99 WHERE (category LIKE '%Science%' OR category LIKE '%Programming%' OR category LIKE '%Computer%') AND (price = 1.00 OR price IS NULL);
 UPDATE books SET price = 52.97 WHERE (category LIKE '%History%' OR category LIKE '%Biography%') AND (price = 1.00 OR price IS NULL);
-UPDATE books SET price = 353.67 WHERE (category LIKE '%Business%' OR category LIKE '%Self-Help%') AND (price = 1.00 OR price IS NULL);
+UPDATE books SET price = 45.00 WHERE (category LIKE '%Business%' OR category LIKE '%Self-Help%') AND (price = 1.00 OR price IS NULL);
 UPDATE books SET price = 36.63 WHERE (category LIKE '%Art%' OR category LIKE '%Philosophy%') AND (price = 1.00 OR price IS NULL);
-UPDATE books SET price = 76.49 WHERE (category LIKE '%Children%' OR category LIKE '%Young Adult%') AND (price = 1.00 OR price IS NULL);
+UPDATE books SET price = 25.00 WHERE (category LIKE '%Children%' OR category LIKE '%Young Adult%') AND (price = 1.00 OR price IS NULL);
 UPDATE books SET price = 26.99 WHERE (category LIKE '%Poetry%' OR category LIKE '%Drama%') AND (price = 1.00 OR price IS NULL);
-
-
 UPDATE books SET price = 25.00 WHERE price = 1.00 OR price IS NULL;
+

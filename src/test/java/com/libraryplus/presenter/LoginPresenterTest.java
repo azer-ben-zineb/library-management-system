@@ -38,6 +38,11 @@ class LoginPresenterTest {
         @Override
         public void updateUser(User user) {
         }
+
+        @Override
+        public java.util.List<User> findAll() {
+            return user != null ? java.util.List.of(user) : java.util.List.of();
+        }
     }
 
     static class FakeLoginDao implements LoginDao {
